@@ -28,9 +28,9 @@ dependencies {
 task makeJar(type: Copy) {
     //删除存在的
 //    delete 'build/libs/support-modules.jar'
-    delete '/Users/yangzc/Desktop/release/support-modules.jar'
+    delete '/Users/yangzc/Desktop/release/support-dd.jar'
     //设置拷贝的文件
-    from('build/intermediates/bundles/release/')
+    from('build/intermediates/bundles/default/')
     //打进jar包后的文件目录
 //    into('build/libs/')
     into('/Users/yangzc/Desktop/release/')
@@ -39,7 +39,7 @@ task makeJar(type: Copy) {
     //（我们只关心classes.jar这个文件）
     include('classes.jar')
     //重命名
-    rename ('classes.jar', 'support-modules.jar')
+    rename ('classes.jar', 'support-dd.jar')
 }
 
 makeJar.dependsOn(build)
