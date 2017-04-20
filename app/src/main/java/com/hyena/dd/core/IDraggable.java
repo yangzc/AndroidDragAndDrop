@@ -5,4 +5,15 @@ package com.hyena.dd.core;
  */
 
 public interface IDraggable {
+
+    /**
+     * 转化为幽灵状态并返回幽灵
+     */
+    IDraggableGhost toGhost();
+
+    /**
+     * 状态还原
+     */
+    void reset();
+
 }
