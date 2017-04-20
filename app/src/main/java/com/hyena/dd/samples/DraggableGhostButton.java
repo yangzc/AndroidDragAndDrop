@@ -3,8 +3,9 @@ package com.hyena.dd.samples;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.hyena.dd.core.IDraggable;
-import com.hyena.dd.core.IDraggableGhost;
+import com.hyean.dd.IDraggable;
+import com.hyean.dd.IDraggableGhost;
+
 
 /**
  * Created by yangzc on 17/4/20.

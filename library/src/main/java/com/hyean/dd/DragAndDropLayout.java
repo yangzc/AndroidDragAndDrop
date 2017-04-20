@@ -1,4 +1,4 @@
-package com.hyena.dd.core;
+package com.hyean.dd;
 
 import android.content.Context;
 import android.graphics.Rect;

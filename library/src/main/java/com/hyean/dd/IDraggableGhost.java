@@ -1,4 +1,4 @@
-package com.hyena.dd.core;
+package com.hyean.dd;
 
 /**
  * Created by yangzc on 17/4/20.

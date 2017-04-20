@@ -5,8 +5,8 @@ import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.widget.Button;
 
-import com.hyena.dd.core.IDraggable;
-import com.hyena.dd.core.IDroppable;
+import com.hyean.dd.IDraggable;
+import com.hyean.dd.IDroppable;
 
 /**
  * Created by yangzc on 17/4/20.

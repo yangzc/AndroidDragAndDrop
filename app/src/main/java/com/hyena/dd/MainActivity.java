@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.hyena.dd.core.DragAndDropLayout;
-import com.hyena.dd.core.IDroppable;
+import com.hyean.dd.DragAndDropLayout;
+import com.hyean.dd.IDroppable;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -5,8 +5,8 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.Button;
 
-import com.hyena.dd.core.IDraggable;
-import com.hyena.dd.core.IDraggableGhost;
+import com.hyean.dd.IDraggable;
+import com.hyean.dd.IDraggableGhost;
 
 /**
  * Created by yangzc on 17/4/20.
