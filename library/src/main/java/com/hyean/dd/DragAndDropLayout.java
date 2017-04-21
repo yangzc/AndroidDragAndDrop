@@ -191,7 +191,7 @@ public class DragAndDropLayout extends RelativeLayout {
             View view = (View) mGhostDraggable;
             RelativeLayout.LayoutParams params = (LayoutParams) view.getLayoutParams();
             params.leftMargin = (int) Math.min(Math.max(0, x), getWidth() - view.getWidth());
-            params.topMargin = (int) Math.min(Math.max(0, y), getWidth() - view.getWidth());
+            params.topMargin = (int) Math.min(Math.max(0, y), getHeight() - view.getHeight());
             requestLayout();
         }
     }
