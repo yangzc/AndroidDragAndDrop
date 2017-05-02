@@ -23,6 +23,7 @@ public class DragAndDropLayout extends RelativeLayout {
 
     private static final int STATUS_IDLE = 1;
     private static final int STATUS_DRAG = 2;
+    private static final int STATUS_FLYING = 3;
 
     private static int mMinDistance;
     private float mLastX, mLastY;
@@ -70,7 +71,8 @@ public class DragAndDropLayout extends RelativeLayout {
             case MotionEvent.ACTION_MOVE: {
                 float xDis = (ev.getX() - mLastX);
                 float yDis = (ev.getY() - mLastY);
-                if (mDraggable != null && xDis * xDis + yDis * yDis > mMinDistance * mMinDistance) {
+                if (mDraggable != null && mStatus == STATUS_IDLE
+                        && xDis * xDis + yDis * yDis > mMinDistance * mMinDistance) {
                     mGhostDraggable = mDraggable.toGhost();//当前可拖拽对象转化成幽灵状态
                     makeGhostPosition(mGhostDraggable);
                     reCollectDroppables();
@@ -138,12 +140,14 @@ public class DragAndDropLayout extends RelativeLayout {
             }
             mDroppable.captureDraggable(mGhostDraggable.getNatureDraggable());
             removeGhostView();
+            mStatus = STATUS_IDLE;
         } else {
             ghostFlyBack();
         }
     }
 
     private void ghostFlyBack() {
+        mStatus = STATUS_FLYING;
         final int startX = ((View)mGhostDraggable).getLeft();
         final int startY = ((View)mGhostDraggable).getTop();
         int xy[] = getLocationInThis((View) mGhostDraggable.getNatureDraggable());
@@ -171,6 +175,7 @@ public class DragAndDropLayout extends RelativeLayout {
                 if (mGhostDraggable != null) {
                     mGhostDraggable.getNatureDraggable().reset();
                 }
+                mStatus = STATUS_IDLE;
             }
 
             @Override
@@ -263,6 +268,7 @@ public class DragAndDropLayout extends RelativeLayout {
                 new RelativeLayout.LayoutParams(width, height);
         params.leftMargin = xy[0];
         params.topMargin = xy[1];
+        removeGhostView();
         addView(view, params);
     }
 
