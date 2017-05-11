@@ -62,15 +62,15 @@ public class DragAndDropLayout extends RelativeLayout {
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN: {
-                this.mLastX = ev.getX();
-                this.mLastY = ev.getY();
+                this.mLastX = ev.getX(0);
+                this.mLastY = ev.getY(0);
                 //获得触摸到的可拖拽对象
-                mDraggable = findTopChildUnder(this, ev.getX(), ev.getY());
+                mDraggable = findTopChildUnder(this, ev.getX(0), ev.getY(0));
                 break;
             }
             case MotionEvent.ACTION_MOVE: {
-                float xDis = (ev.getX() - mLastX);
-                float yDis = (ev.getY() - mLastY);
+                float xDis = (ev.getX(0) - mLastX);
+                float yDis = (ev.getY(0) - mLastY);
                 if (mDraggable != null && mStatus == STATUS_IDLE
                         && xDis * xDis + yDis * yDis > mMinDistance * mMinDistance) {
                     mGhostDraggable = mDraggable.toGhost();//当前可拖拽对象转化成幽灵状态
@@ -82,7 +82,7 @@ public class DragAndDropLayout extends RelativeLayout {
             }
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL: {
-                mStatus = STATUS_IDLE;
+//                mStatus = STATUS_IDLE;
                 break;
             }
         }
@@ -96,15 +96,14 @@ public class DragAndDropLayout extends RelativeLayout {
                 break;
             }
             case MotionEvent.ACTION_MOVE: {
-                float x = event.getX();
-                float y = event.getY();
+                float x = event.getX(0);
+                float y = event.getY(0);
                 onTouchMove(x, y);
                 break;
             }
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL: {
                 onTouchUp();
-                mStatus = STATUS_IDLE;
                 break;
             }
         }
@@ -138,9 +137,13 @@ public class DragAndDropLayout extends RelativeLayout {
             if (captured != null) {
                 captured.reset();//状态还原
             }
-            mDroppable.captureDraggable(mGhostDraggable.getNatureDraggable());
-            removeGhostView();
-            mStatus = STATUS_IDLE;
+            mDroppable.captureDraggable(mGhostDraggable.getNatureDraggable(), new IDroppable.CaptureListener() {
+                @Override
+                public void onMarkCaptured() {
+                    removeGhostView();
+                    mStatus = STATUS_IDLE;
+                }
+            });
         } else {
             ghostFlyBack();
         }
@@ -272,14 +275,18 @@ public class DragAndDropLayout extends RelativeLayout {
         addView(view, params);
     }
 
-    public void flyBack(IDroppable droppable) {
+    public void flyBack(final IDroppable droppable) {
         if (droppable != null && droppable.getCapturedDraggable() != null) {
-            int xy[] = getLocationInThis((View) droppable);
-            View ghostView = (View) droppable.getCapturedDraggable().toGhost();
-            View draggableView = (View) droppable.getCapturedDraggable();
-            addGhostView(ghostView, xy, draggableView.getWidth(), draggableView.getHeight());
-            ghostFlyBack();
-            droppable.captureDraggable(null);
+            droppable.captureDraggable(null, new IDroppable.CaptureListener() {
+                @Override
+                public void onMarkCaptured() {
+                    int xy[] = getLocationInThis((View) droppable);
+                    View ghostView = (View) droppable.getCapturedDraggable().toGhost();
+                    View draggableView = (View) droppable.getCapturedDraggable();
+                    addGhostView(ghostView, xy, draggableView.getWidth(), draggableView.getHeight());
+                    ghostFlyBack();
+                }
+            });
         }
     }
 

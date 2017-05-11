@@ -29,12 +29,15 @@ public class DroppableButton extends AppCompatButton implements IDroppable {
     }
 
     @Override
-    public void captureDraggable(IDraggable draggable) {
+    public void captureDraggable(IDraggable draggable, CaptureListener listener) {
         this.mCapturedDraggable = draggable;
         if (draggable != null && draggable instanceof Button) {
             setText("captured " + ((Button) draggable).getText());
         } else {
             setText("wait capture ...");
+        }
+        if (listener != null) {
+            listener.onMarkCaptured();
         }
     }
 

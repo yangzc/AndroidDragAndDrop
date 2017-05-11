@@ -10,7 +10,7 @@ public interface IDroppable {
      * 捕获可拖拽物体
      * @param draggable
      */
-    void captureDraggable(IDraggable draggable);
+    void captureDraggable(IDraggable draggable, CaptureListener listener);
 
     /**
      * 是否是捕获状态
@@ -23,4 +23,8 @@ public interface IDroppable {
      * @return
      */
     IDraggable getCapturedDraggable();
+
+    interface CaptureListener {
+        void onMarkCaptured();
+    }
 }
