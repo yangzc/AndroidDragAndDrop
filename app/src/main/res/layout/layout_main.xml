@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.hyean.dd.DragAndDropLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:id="@+id/dd"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -33,11 +33,16 @@
     </LinearLayout>
 
     <com.hyena.dd.samples.DroppableButton
+        android:id="@+id/drop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/drop"
         android:layout_below="@id/top"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="droppable" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#33333333" />
 </com.hyean.dd.DragAndDropLayout>

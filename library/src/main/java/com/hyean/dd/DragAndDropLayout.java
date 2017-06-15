@@ -322,7 +322,7 @@ public class DragAndDropLayout extends RelativeLayout {
         return null;
     }
 
-    private int[] getLocationInThis(View view) {
+    public int[] getLocationInThis(View view) {
         int location[] = new int[2];
         View v = view;
         do {
